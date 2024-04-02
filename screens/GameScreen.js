@@ -1,29 +1,29 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
-// import { tweenCharacter } from '../services/characher-service';
+import { getCharacter, CHARACTER_DURATION } from '../services/characher-service';
 import Character from '../components/Character';
+import Button from '../components/Button';
 
 let characterTimeout;
 
 export default function GameScreen({ goBack }) {
   const [character, setCharacter] = useState(null);
-  const characterRef = useRef(null);
 
   useEffect(() => {
     clearTimeout(characterTimeout);
-    characterTimeout = setTimeout(enterNewCharacter, 2000);
+    characterTimeout = setTimeout(enterNewCharacter, CHARACTER_DURATION);
     return () => clearTimeout(characterTimeout);
-  }, [characterRef]);
+  }, []);
 
   function enterNewCharacter() {
-    setCharacter('gubbe');
-    characterTimeout = setTimeout(exitCharacter, 2000);
+    setCharacter(getCharacter());
+    characterTimeout = setTimeout(exitCharacter, CHARACTER_DURATION);
   }
 
   function exitCharacter() {
     setCharacter(null);
-    characterTimeout = setTimeout(enterNewCharacter, 2000);
+    characterTimeout = setTimeout(enterNewCharacter, CHARACTER_DURATION);
   }
 
   function pressCharacter() {
@@ -34,8 +34,9 @@ export default function GameScreen({ goBack }) {
 
   return (
     <View style={styles.container}>
-      <Character character={character} ref={characterRef} onPress={pressCharacter} />
+      <Character character={character} onPress={pressCharacter} />
       <Text>A game is active!</Text>
+      <Button onPress={goBack} text="Tillbaka" />
     </View>
   );
 }
