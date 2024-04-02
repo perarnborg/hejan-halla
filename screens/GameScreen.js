@@ -12,19 +12,18 @@ export default function GameScreen({ goBack }) {
 
   useEffect(() => {
     clearTimeout(characterTimeout);
-    characterTimeout = setTimeout(enterNewCharacter, 1000);
+    characterTimeout = setTimeout(enterNewCharacter, 2000);
     return () => clearTimeout(characterTimeout);
   }, [characterRef]);
 
   function enterNewCharacter() {
     setCharacter('gubbe');
-    console.log(characterRef.current);
     characterTimeout = setTimeout(exitCharacter, 2000);
   }
 
   function exitCharacter() {
     setCharacter(null);
-    characterTimeout = setTimeout(enterNewCharacter, 1000);
+    characterTimeout = setTimeout(enterNewCharacter, 2000);
   }
 
   function pressCharacter() {
