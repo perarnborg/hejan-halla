@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+
+import Button from '../components/Button';
 
 export default function HomeScreen({ startGame }) {
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
-      <Button onPress={startGame} title="En knapp" />
+      <Button onPress={startGame} text="En knapp" />
     </View>
   );
 }
